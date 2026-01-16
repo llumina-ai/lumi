@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>llumina | Signal, not noise.</title>
+    
+    <!-- Favicon - Relative to Lumina/ folder -->
+    <link rel="icon" type="image/png" href="./assets/image.png">
+
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <style>
+        body { 
+            font-family: 'Plus Jakarta Sans', sans-serif; 
+            background-color: #ffffff; 
+            color: #000000;
+            -webkit-font-smoothing: antialiased;
+            overflow-x: hidden;
+        }
+
+        /* Entrance Animations */
+        @keyframes revealUp { 
+            from { opacity: 0; transform: translateY(30px); } 
+            to { opacity: 1; transform: translateY(0); } 
+        }
+        .animate-reveal { opacity: 0; animation: revealUp 1s cubic-bezier(0.16, 1, 0.3, 1) forwards; }
+        .delay-1 { animation-delay: 0.2s; } 
+        .delay-2 { animation-delay: 0.4s; } 
+        .delay-3 { animation-delay: 0.6s; }
+        
+        /* Transition Animation */
+        .page-exit { opacity: 0; transform: translateY(-20px); transition: all 0.6s cubic-bezier(0.16, 1, 0.3, 1); }
+
+        .hero-gradient { 
+            background: radial-gradient(circle at 50% 50%, rgba(245, 245, 245, 1) 0%, rgba(255, 255, 255, 0) 100%); 
+        }
+    </style>
+</head>
+<body class="selection:bg-black selection:text-white">
+
+    <!-- Header Navigation -->
+    <nav class="fixed top-0 w-full z-50 px-6 py-8 md:px-12 flex justify-between items-center">
+        <div class="flex items-center gap-2">
+            <div class="w-2.5 h-2.5 bg-black rounded-full"></div>
+            <span class="font-extrabold text-lg tracking-tighter uppercase">llumina</span>
+        </div>
+        <button onclick="navigateToPortal()" class="text-[10px] font-bold uppercase tracking-[0.2em] border-b border-black pb-1 hover:opacity-50 transition-all cursor-pointer">
+            Enter Portal
+        </button>
+    </nav>
+
+    <!-- Hero Section -->
+    <main id="main-content" class="relative min-h-[100dvh] flex flex-col items-center justify-center px-6 transition-all duration-700">
+        <div class="absolute inset-0 hero-gradient -z-10"></div>
+        
+        <div class="max-w-4xl w-full text-center">
+            <p class="animate-reveal text-[10px] font-bold uppercase tracking-[0.4em] text-zinc-400 mb-6">Coming 2026</p>
+            
+            <h1 class="animate-reveal delay-1 text-5xl md:text-8xl font-extrabold tracking-tight mb-8 leading-[0.9]">
+                Professional <br> recruitment, <span class="text-zinc-300">redefined.</span>
+            </h1>
+            
+            <p class="animate-reveal delay-2 text-zinc-500 text-lg md:text-xl font-medium max-w-xl mx-auto mb-12 leading-relaxed px-4">
+                A private system for professional signal, not noise. 
+            </p>
+
+            <div class="animate-reveal delay-3">
+                <button onclick="navigateToPortal()" class="inline-block bg-black text-white px-10 py-5 rounded-full font-bold text-sm md:text-base hover:bg-zinc-800 transition-all active:scale-95 shadow-2xl shadow-black/20 cursor-pointer">
+                    Request Early Access
+                </button>
+                <p class="mt-6 text-[10px] text-zinc-300 font-bold uppercase tracking-widest italic">By invitation only</p>
+            </div>
+        </div>
+    </main>
+
+    <!-- Visual Accent -->
+    <div class="fixed bottom-0 left-0 w-full h-1/4 pointer-events-none opacity-[0.02] overflow-hidden">
+        <div class="absolute bottom-0 left-1/2 -translate-x-1/2 w-[140%] h-full border-t border-black rounded-[100%]"></div>
+    </div>
+
+    <!-- Desktop Footer -->
+    <footer class="fixed bottom-0 w-full px-12 py-8 hidden md:flex justify-between items-center">
+        <span class="text-[10px] font-bold text-zinc-300 uppercase tracking-widest">Professional Intelligence</span>
+        <span class="text-[10px] font-bold text-zinc-300 uppercase tracking-widest">© 2026 llumina</span>
+    </footer>
+
+    <!-- Navigation Logic -->
+    <script>
+        function navigateToPortal() {
+            // Exit animation
+            const content = document.getElementById('main-content');
+            content.classList.add('page-exit');
+
+            // Redirect to the waitlist subfolder
+            setTimeout(() => {
+                window.location.href = "./waitlist/";
+            }, 400);
+        }
+
+        // Preload waitlist for a faster transition
+        window.addEventListener('load', () => {
+            const link = document.createElement('link');
+            link.rel = 'prefetch';
+            link.href = './waitlist/';
+            document.head.appendChild(link);
+        });
+    </script>
+
+</body>
+</html>
