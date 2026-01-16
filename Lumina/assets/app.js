@@ -12,21 +12,10 @@ const emailInput = document.getElementById("email-input");
 const submitBtn = document.getElementById("submit-btn");
 const statusEl = document.getElementById("status");
 
-function setStatus(msg, isError = false) {
-    statusEl.textContent = msg;
-    statusEl.className = `text-[11px] text-center min-h-[1.25rem] mt-4 font-bold uppercase tracking-tight ${isError ? "text-red-500" : "text-zinc-400"}`;
-}
-
 form.addEventListener("submit", async (e) => {
     e.preventDefault();
-    setStatus("");
-
+    statusEl.textContent = "";
     const email = emailInput.value.trim().toLowerCase();
-
-    if (!email || !/^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(email)) {
-        setStatus("Invalid email format.", true);
-        return;
-    }
 
     submitBtn.disabled = true;
     submitBtn.textContent = "Joining...";
@@ -38,18 +27,19 @@ form.addEventListener("submit", async (e) => {
         });
 
         if (!error) {
-            window.location.href = "/thank-you/";
+            // FIX: Use absolute path for Netlify redirect
+            window.location.href = "/lumina/thank-you/";
             return;
         }
 
         if (error.code === "23505") {
-            setStatus("You're already on the list.");
+            statusEl.textContent = "You're already on the list.";
         } else {
-            setStatus("Error: " + error.message, true);
+            statusEl.textContent = "Error: " + error.message;
         }
 
     } catch (err) {
-        setStatus("Network error. Try again.", true);
+        statusEl.textContent = "Network error. Try again.";
     } finally {
         if (statusEl.textContent !== "") {
             submitBtn.disabled = false;
